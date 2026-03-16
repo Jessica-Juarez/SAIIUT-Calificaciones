@@ -13,7 +13,6 @@
           "name": "Login (Admin)",
           "request": {
             "method": "POST",
-            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"admin@uttehuacan.edu.mx\",\n  \"password\": \"admin123\"\n}",
@@ -79,6 +78,21 @@
           }
         },
         {
+          "name": "Ver Alumnos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/students",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "students"]
+            }
+          }
+        },
+        {
           "name": "Ver Materias",
           "request": {
             "auth": {
@@ -90,6 +104,76 @@
               "raw": "{{base_url}}/api/admin/subjects",
               "host": ["{{base_url}}"],
               "path": ["api", "admin", "subjects"]
+            }
+          }
+        },
+        {
+          "name": "Agregar Usuario (Profe/Alumno)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Nuevo Profesor\",\n  \"email\": \"nuevo.profe@uttehuacan.edu.mx\",\n  \"password\": \"temporal123\",\n  \"role\": \"teacher\",\n  \"matricula\": \"DOC005\",\n  \"area\": \"Ingeniería\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "Editar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Profesor Editado\",\n  \"area\": \"Mecatrónica\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/8",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "8"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar/Desactivar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/8",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "8"]
+            }
+          }
+        },
+        {
+          "name": "Ver Periodos (Cuatrimestres)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/admin/periods",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "periods"]
             }
           }
         },
@@ -110,6 +194,26 @@
               "raw": "{{base_url}}/api/admin/groups",
               "host": ["{{base_url}}"],
               "path": ["api", "admin", "groups"]
+            }
+          }
+        },
+        {
+          "name": "Inscribir Alumno a Grupo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{token_admin}}", "type": "string" }]
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": 4,\n  \"group_id\": 2\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/enrollments",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "enrollments"]
             }
           }
         }

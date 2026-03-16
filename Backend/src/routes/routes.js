@@ -22,7 +22,14 @@ router.post('/login', authController.login);
 router.get('/admin/teachers', verifyToken, verifyAdmin, adminController.getTeachers);
 router.get('/admin/subjects', verifyToken, verifyAdmin, adminController.getSubjects);
 router.post('/admin/groups', verifyToken, verifyAdmin, adminController.assignGroup);
-
+router.post('/admin/users', verifyToken, verifyAdmin, adminController.createUser);
+router.get('/admin/stats', verifyToken, verifyAdmin, adminController.getDashboardStats);
+router.get('/admin/students', verifyToken, verifyAdmin, adminController.getStudents);
+router.put('/admin/users/:id', verifyToken, verifyAdmin, adminController.updateUser);
+router.delete('/admin/users/:id', verifyToken, verifyAdmin, adminController.deleteUser);
+router.get('/admin/periods', verifyToken, verifyAdmin, adminController.getPeriods);
+router.post('/admin/enrollments', verifyToken, verifyAdmin, adminController.enrollStudent);
+router.get('/admin/users', verifyToken, verifyAdmin, adminController.getAllUsers);
 // ============================
 // 3. RUTAS DE PROFESOR
 // ============================

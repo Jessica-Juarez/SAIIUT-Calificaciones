@@ -1,0 +1,207 @@
+/* Contenedor principal */
+.teacher-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #f8fafc; /* Fondo gris súper clarito */
+  min-height: 100vh;
+}
+
+.teacher-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.teacher-header h1 {
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+}
+
+.teacher-header p {
+  color: #64748b;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* === SECCIÓN DE GRUPOS === */
+.groups-section h2 {
+  color: #334155;
+  margin-bottom: 1.5rem;
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjeta de Grupo */
+.group-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.group-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6; /* Borde azul al hacer hover */
+}
+
+.group-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: #1d4ed8;
+}
+
+.group-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.group-card-body p {
+  margin: 0.4rem 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.btn-view-students {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.group-card:hover .btn-view-students {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+/* === SECCIÓN DE ALUMNOS (TABLA) === */
+.students-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.students-header h2 {
+  margin: 0;
+  color: #334155;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.btn-back:hover {
+  color: #0f172a;
+}
+
+/* Tabla de Calificaciones */
+.table-wrapper {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+}
+
+.teacher-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teacher-table th,
+.teacher-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teacher-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.teacher-table tr:hover td {
+  background-color: #f1f5f9;
+}
+
+.student-name {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.student-matricula {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Inputs de Calificación */
+.grade-input {
+  width: 70px;
+  text-align: center;
+  padding: 0.4rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.grade-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Botón Guardar */
+.btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #10b981; /* Verde esmeralda */
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-save:hover {
+  background-color: #059669;
+}
+
+/* Utilidades */
+.text-center { text-align: center; }
+.loading-text { text-align: center; color: #64748b; padding: 2rem; font-size: 1.1rem; }
+.no-data { color: #64748b; font-style: italic; }
