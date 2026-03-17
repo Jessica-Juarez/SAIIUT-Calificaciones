@@ -323,3 +323,23 @@
   color: white;
   border-color: #d63031;
 }
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 15px;
+  border-left: 3px solid #3498db;
+  padding-left: 10px;
+}
+
+.btn-teacher {
+  background-color: #8e44ad !important; /* Un color morado para diferenciar profes */
+}
+.btn-teacher:hover {
+  background-color: #7d3c98 !important;
+}

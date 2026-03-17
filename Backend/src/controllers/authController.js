@@ -1,15 +1,15 @@
 const pool = require('../config/db');
 const jwt = require('jsonwebtoken');
-// Importamos la clave secreta definida en el middleware
+const bcrypt = require('bcrypt');
 const { JWT_SECRET } = require('../middleware/authMiddleware');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
   
   try {
-    // Buscamos al usuario por email
+    // 1. Buscamos al usuario
     const result = await pool.query(
-      'SELECT id, full_name, email, role, matricula, password FROM users WHERE email = $1', 
+      'SELECT id, full_name, email, role, password FROM users WHERE email = $1', 
       [email]
     );
 
@@ -19,25 +19,23 @@ const login = async (req, res) => {
 
     const user = result.rows[0];
 
-    // VERIFICACIÓN DE CONTRASEÑAd)'
-    if (password !== user.password) {
+    // 2. COMPARACIÓN CRÍTICA
+    // password: lo que escribió el usuario (ej: "admin123")
+    // user.password: el hash guardado en la BD (ej: "$2b$10$...")
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
 
-    // GENERACIÓN DEL TOKEN
-    // Guardamos datos útiles dentro del token para no tener que consultar la BD a cada rato
+    // 3. GENERACIÓN DEL TOKEN
     const token = jwt.sign(
-      { 
-        id: user.id, 
-        email: user.email, 
-        role: user.role,
-        name: user.full_name
-      },
+      { id: user.id, email: user.email, role: user.role, name: user.full_name },
       JWT_SECRET,
-      { expiresIn: '8h' } // El token caduca en 8 horas (jornada laboral/escolar)
+      { expiresIn: '8h' }
     );
 
-    // Quitamos el password del objeto usuario antes de enviarlo al frontend por seguridad
+    // Limpieza por seguridad
     delete user.password;
 
     res.json({ 

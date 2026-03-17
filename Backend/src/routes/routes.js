@@ -30,6 +30,10 @@ router.delete('/admin/users/:id', verifyToken, verifyAdmin, adminController.dele
 router.get('/admin/periods', verifyToken, verifyAdmin, adminController.getPeriods);
 router.post('/admin/enrollments', verifyToken, verifyAdmin, adminController.enrollStudent);
 router.get('/admin/users', verifyToken, verifyAdmin, adminController.getAllUsers);
+router.post('/admin/assign-student', verifyToken, verifyAdmin, adminController.assignStudent);
+router.post('/admin/assign-teacher', verifyToken, verifyAdmin, adminController.assignTeacher);
+router.post('/admin/create-group', verifyToken, verifyAdmin, adminController.createGroup);
+router.get('/admin/groups', verifyToken, verifyAdmin, adminController.getGroups);
 // ============================
 // 3. RUTAS DE PROFESOR
 // ============================

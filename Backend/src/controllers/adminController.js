@@ -22,17 +22,27 @@ const getSubjects = async (req, res) => {
 };
 
 const assignGroup = async (req, res) => {
-  // Ajuste: Se agregó 'cuatrimestre' para que coincida con la BD
-  const { name, cuatrimestre, subject_id, teacher_id, period_id, classroom } = req.body;
+  // 1. Extraemos los nombres EXACTOS que envía el Frontend (GroupManagement.jsx)
+  const { group_name, cuatrimestre, area, classroom } = req.body;
+
   try {
+    // 2. Asegúrate de que las columnas coincidan con tu tabla 'groups'
     const result = await pool.query(
-      `INSERT INTO groups (name, cuatrimestre, subject_id, teacher_id, period_id, classroom) 
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [name, cuatrimestre, subject_id, teacher_id, period_id, classroom]
+      `INSERT INTO groups (group_name, cuatrimestre, area, classroom) 
+       VALUES ($1, $2, $3, $4) RETURNING *`,
+      [group_name, cuatrimestre, area, classroom]
     );
-    res.json({ message: 'Grupo creado exitosamente', group: result.rows[0] });
+
+    res.json({ 
+      message: 'Grupo creado exitosamente', 
+      group: result.rows[0] 
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Error al asignar materia. Verifica duplicados.' });
+    console.error("Detalle del error en BD:", err); // Esto te ayudará a ver el error real en la consola
+    res.status(500).json({ 
+      error: 'Error al crear el grupo.',
+      details: err.message 
+    });
   }
 };
 
@@ -182,6 +192,61 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+// --- ASIGNAR ALUMNO (1 alumno -> 1 grupo) ---
+const assignStudent = async (req, res) => {
+  const { userId, groupId } = req.body;
+  try {
+    await pool.query(`
+      INSERT INTO enrollments (student_id, group_id)
+      VALUES ($1, $2)
+      ON CONFLICT (student_id) 
+      DO UPDATE SET group_id = EXCLUDED.group_id
+    `, [userId, groupId]);
+    res.json({ message: "Alumno asignado/movido con éxito" });
+  } catch (err) {
+    res.status(500).json({ error: "Error al asignar alumno" });
+  }
+};
+
+// --- ASIGNAR PROFESOR (N profesores -> N grupos) ---
+const assignTeacher = async (req, res) => {
+  const { userId, groupId, subjectId } = req.body; // Recibimos materia también
+  try {
+    await pool.query(`
+      INSERT INTO group_teachers (user_id, group_id, subject_id)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_id, group_id, subject_id) DO NOTHING
+    `, [userId, groupId, subjectId]);
+    res.json({ message: "Profesor vinculado al grupo" });
+  } catch (err) {
+    res.status(500).json({ error: "Error al vincular profesor" });
+  }
+};
+
+// --- CREAR GRUPO (similar a assignGroup pero con endpoint separado) ---
+const createGroup = async (req, res) => {
+  const { group_name, cuatrimestre, area, classroom } = req.body;
+  try {
+    const result = await pool.query(
+      `INSERT INTO groups (group_name, cuatrimestre, area, period_id, classroom) 
+       VALUES ($1, $2, $3, (SELECT id FROM academic_periods WHERE is_active = true LIMIT 1), $4) 
+       RETURNING *`,
+      [group_name, cuatrimestre, area, classroom]
+    );
+    res.json({ message: 'Grupo creado', group: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al crear el grupo' });
+  }
+};
+// Obtener todos los grupos
+const getGroups = async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM groups ORDER BY group_name ASC');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener grupos" });
+  }
+};
 
 // Exportar TODO
 module.exports = { 
@@ -195,5 +260,9 @@ module.exports = {
   deleteUser,
   getPeriods,
   enrollStudent,
-  getAllUsers
+  getAllUsers,
+  assignStudent,
+  assignTeacher,
+  createGroup,
+  getGroups
 };
