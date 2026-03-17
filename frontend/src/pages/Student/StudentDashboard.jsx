@@ -1,83 +1,171 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { studentService } from '../../api/services';
-import { GraduationCap, BookOpen, UserCheck, AlertTriangle } from 'lucide-react';
+import { GraduationCap, Award, BookOpen, Printer, Info } from 'lucide-react';
+import './StudentDashboard.css';
 
 const StudentDashboard = () => {
-  const [history, setHistory] = useState([]);
+  const [historyByCuatri, setHistoryByCuatri] = useState({});
+  const [maxCuatri, setMaxCuatri] = useState(1);
   const [loading, setLoading] = useState(true);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [generalAverage, setGeneralAverage] = useState(0);
+
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => {
     const fetchHistory = async () => {
+      if (!user.id) return;
       try {
-        const { data } = await studentService.getHistory(user.id);
-        setHistory(data);
-      } catch (err) { console.error(err); } 
-      finally { setLoading(false); }
-    };
-    if (user?.id) fetchHistory();
-  }, [user]);
+        const response = await studentService.getHistory(user.id);
+        const data = response.data ? response.data : response;
+        
+        if (Array.isArray(data) && data.length > 0) {
+          // 1. Calcular el Promedio General
+          const validScores = data.filter(item => item.final_score !== null && Number(item.final_score) > 0);
+          if (validScores.length > 0) {
+            const total = validScores.reduce((sum, item) => sum + Number(item.final_score), 0);
+            setGeneralAverage((total / validScores.length).toFixed(1));
+          }
 
-  // Función auxiliar para determinar estatus (UT: < 8 es Reprobado)
+          // 2. Agrupar por cuatrimestre y encontrar el máximo cuatrimestre actual
+          let maxC = 1;
+          const grouped = {};
+          
+          data.forEach(item => {
+            const cuatri = item.cuatrimestre || 1;
+            if (cuatri > maxC) maxC = cuatri;
+            
+            if (!grouped[cuatri]) grouped[cuatri] = [];
+            grouped[cuatri].push(item);
+          });
+
+          setMaxCuatri(maxC);
+          setHistoryByCuatri(grouped);
+        }
+      } catch (err) { 
+        console.error("Error cargando historial:", err); 
+      } finally { 
+        setLoading(false); 
+      }
+    };
+    fetchHistory();
+  }, [user.id]);
+
   const getStatus = (score) => {
-    if (!score) return { text: 'Cursando', color: 'bg-gray-100 text-gray-600' };
     const num = Number(score);
-    if (num >= 8) return { text: 'Aprobado', color: 'bg-green-100 text-green-700' };
-    return { text: 'Reprobado', color: 'bg-red-100 text-red-700' };
+    if (!score || num === 0) return { text: 'Cursando', className: 'status-cursando' };
+    if (num >= 8) return { text: 'Aprobado', className: 'status-aprobado' };
+    return { text: 'Reprobado', className: 'status-reprobado' };
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
+  // Creamos un arreglo de [1, 2, ..., maxCuatri] para renderizar todos los bloques
+  const cuatrimestresArray = Array.from({ length: maxCuatri }, (_, i) => i + 1);
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-5xl mx-auto">
-        {/* Tarjeta de Perfil */}
-        <div className="bg-white rounded-xl p-6 shadow-sm mb-6 flex justify-between items-center border border-gray-200">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800">{user?.name}</h1>
-            <p className="text-gray-500">Matrícula: {user?.matricula}</p>
-            <div className="flex gap-3 mt-2">
-              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-bold">
-                {user?.area || 'Ingeniería en Software'}
-              </span>
-              <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full font-bold">
-                Estudiante Activo
-              </span>
+    <div className="student-container">
+      {/* TARJETA DE PERFIL (Cabecera) */}
+      <div className="student-profile-card">
+        <div className="profile-info-wrapper">
+          <div className="profile-icon">
+            <GraduationCap size={40} />
+          </div>
+          <div className="profile-text">
+            <h1>{user?.name || user?.full_name}</h1>
+            <p>Matrícula: <strong>{user?.matricula}</strong></p>
+            <div className="badges">
+              <span className="badge badge-blue">{user?.area || 'Tronco Común'}</span>
+              <span className="badge badge-purple">Estudiante Activo</span>
             </div>
           </div>
-          <GraduationCap size={48} className="text-blue-600 opacity-20" />
         </div>
 
-        {/* Tabla Historial */}
-        <div className="bg-white rounded-xl shadow border border-gray-100 overflow-hidden">
-          <div className="p-4 bg-gray-50 border-b font-bold text-gray-700">Historial Académico</div>
-          <table className="w-full text-left">
-            <thead>
-              <tr className="text-sm text-gray-500 border-b">
-                <th className="p-4">Materia</th>
-                <th className="p-4">Periodo</th>
-                <th className="p-4 text-center">Calif. Final</th>
-                <th className="p-4 text-center">Estatus</th>
-              </tr>
-            </thead>
-            <tbody>
-              {history.map((item, idx) => {
-                const status = getStatus(item.final_score);
-                return (
-                  <tr key={idx} className="border-b hover:bg-gray-50">
-                    <td className="p-4 font-medium">{item.materia} <br/><span className="text-xs text-gray-400">Grupo {item.grupo}</span></td>
-                    <td className="p-4 text-sm text-gray-500">{item.periodo}</td>
-                    <td className="p-4 text-center font-bold text-lg">{item.final_score ? Number(item.final_score).toFixed(1) : '-'}</td>
-                    <td className="p-4 text-center">
-                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${status.color}`}>
-                        {status.text}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="profile-actions">
+          {/* Botón de Imprimir (Se oculta al imprimir) */}
+          <button className="btn-print no-print" onClick={handlePrint}>
+            <Printer size={18} /> Imprimir Boleta
+          </button>
+
+          <div className="average-box">
+            <p><Award size={16} /> Promedio General</p>
+            <h2 className={generalAverage >= 8 ? 'text-green' : 'text-red'}>
+              {generalAverage}
+            </h2>
+          </div>
         </div>
       </div>
+
+      <div className="history-header no-print">
+        <h2><BookOpen size={22} /> Historial Académico por Cuatrimestre</h2>
+      </div>
+
+      {loading ? (
+        <p className="loading-text">Cargando tu historial...</p>
+      ) : (
+        <div className="cuatrimestres-list">
+          {cuatrimestresArray.map((num) => {
+            const materias = historyByCuatri[num];
+
+            return (
+              <div key={num} className="cuatrimestre-block">
+                <h3 className="cuatrimestre-title">Cuatrimestre {num}</h3>
+                
+                {materias && materias.length > 0 ? (
+                  <div className="table-wrapper">
+                    <table className="student-table">
+                      <thead>
+                        <tr>
+                          <th>Materia</th>
+                          <th>Periodo</th>
+                          <th className="text-center">Parcial 1</th>
+                          <th className="text-center">Parcial 2</th>
+                          <th className="text-center">Calificación Final</th>
+                          <th className="text-center">Estatus</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {materias.map((item, idx) => {
+                          const status = getStatus(item.final_score);
+                          return (
+                            <tr key={idx}>
+                              <td>
+                                <strong>{item.materia}</strong>
+                                <span className="grupo-badge">Grupo {item.grupo}</span>
+                              </td>
+                              <td className="text-gray">{item.periodo}</td>
+                              <td className="text-center">{item.p1 !== null ? Number(item.p1).toFixed(1) : '-'}</td>
+                              <td className="text-center">{item.p2 !== null ? Number(item.p2).toFixed(1) : '-'}</td>
+                              <td className="text-center font-bold final-score">
+                                {item.final_score && Number(item.final_score) > 0 ? Number(item.final_score).toFixed(1) : '-'}
+                              </td>
+                              <td className="text-center">
+                                <span className={`status-badge ${status.className}`}>
+                                  {status.text}
+                                </span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  // MENSAJE SI EL CUATRIMESTRE NO TIENE DATOS
+                  <div className="empty-cuatrimestre">
+                    <Info size={24} className="info-icon" />
+                    <div>
+                      <h4>Aún no hay registros</h4>
+                      <p>Aún estamos esperando tus calificaciones. Si eres alumno de revalidación o transferencia, tus calificaciones anteriores se reflejarán pronto.</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

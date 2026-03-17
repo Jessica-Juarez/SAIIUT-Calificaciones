@@ -3,12 +3,13 @@ const pool = require('../config/db');
 const getHistory = async (req, res) => {
   const { studentId } = req.params;
   try {
-    const query = `
+const query = `
       SELECT 
         s.name as materia,
         g.group_name as grupo,
+        g.cuatrimestre,   /* ¡Agrega esta línea! */
         ap.name as periodo,
-        gr.p1, gr.p2, gr.p3, gr.final_score
+        gr.p1, gr.p2, gr.final_score
       FROM enrollments e
       JOIN groups g ON e.group_id = g.id
       JOIN academic_periods ap ON g.period_id = ap.id
@@ -16,7 +17,7 @@ const getHistory = async (req, res) => {
       JOIN subjects s ON gt.subject_id = s.id
       LEFT JOIN grades gr ON gr.enrollment_id = e.id AND gr.subject_id = s.id
       WHERE e.student_id = $1
-      ORDER BY ap.id DESC, s.name ASC
+      ORDER BY g.cuatrimestre ASC, s.name ASC
     `;
     const result = await pool.query(query, [studentId]);
     res.json(result.rows);

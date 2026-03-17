@@ -66,7 +66,8 @@ CREATE TABLE enrollments (
     student_id INT REFERENCES users(id) ON DELETE CASCADE,
     group_id INT REFERENCES groups(id) ON DELETE CASCADE,
     enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(student_id)
+--UNIQUE(student_id)
+    UNIQUE(student_id, group_id)
 );
 
 -- 7. TABLA DE CALIFICACIONES
@@ -97,7 +98,7 @@ INSERT INTO users (full_name, email, password, role, matricula, area) VALUES
 ('Ing. Patricia Cruz', 'patricia.cruz@uttehuacan.edu.mx', '$2b$10$Un8p3AtH/C.FshM7vVclvO9N6.V67mN.q0DCC.7BvYhXhZ9/z8V6G', 'teacher', 'DOC004', 'Tecnologías de la Información'),
 
 -- ALUMNOS (Reutilizando el hash de Ana Torres para los nuevos alumnos)
-('German', 'geryiman0@alumnos.ut.mx', '$2b$10$LxoOeg8GQxVgLob2l5O9QeHUZMVHwbG3EsHu7XgGJZSOTG9Pt/nYu', 'student', 'ALU23001', 'Desarrollo de Software'),
+('German', 'geryiman0@gmail.com', '$2b$10$LxoOeg8GQxVgLob2l5O9QeHUZMVHwbG3EsHu7XgGJZSOTG9Pt/nYu', 'student', 'ALU23001', 'Desarrollo de Software'),
 ('Ana Torres', 'ana@alumnos.ut.mx', '$2b$10$Un8p3AtH/C.FshM7vVclvO9N6.V67mN.q0DCC.7BvYhXhZ9/z8V6G', 'student', 'ALU23002', 'Desarrollo de Software'),
 ('Luis Rodríguez', 'luis.r@alumnos.ut.mx', '$2b$10$Un8p3AtH/C.FshM7vVclvO9N6.V67mN.q0DCC.7BvYhXhZ9/z8V6G', 'student', 'ALU23003', 'Desarrollo de Software'),
 ('Sofía Martínez', 'sofia.m@alumnos.ut.mx', '$2b$10$Un8p3AtH/C.FshM7vVclvO9N6.V67mN.q0DCC.7BvYhXhZ9/z8V6G', 'student', 'ALU24001', 'Mecatrónica');

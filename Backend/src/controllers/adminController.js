@@ -193,33 +193,71 @@ const getAllUsers = async (req, res) => {
   }
 };
 // --- ASIGNAR ALUMNO (1 alumno -> 1 grupo) ---
+//const assignStudent = async (req, res) => {
+  //const { userId, groupId } = req.body;
+  //try {
+   // await pool.query(`
+    //  INSERT INTO enrollments (student_id, group_id)
+     // VALUES ($1, $2)
+     // ON CONFLICT (student_id) 
+      //DO UPDATE SET group_id = EXCLUDED.group_id
+    //`, [userId, groupId]);
+   // res.json({ message: "Alumno asignado/movido con éxito" });
+//  } catch (err) {
+//    res.status(500).json({ error: "Error al asignar alumno" });
+//  }
+//};
+
+// --- ASIGNAR ALUMNO (1 alumno -> N grupos, pero sin repetir el mismo) ---
 const assignStudent = async (req, res) => {
   const { userId, groupId } = req.body;
   try {
-    await pool.query(`
+    const result = await pool.query(`
       INSERT INTO enrollments (student_id, group_id)
       VALUES ($1, $2)
-      ON CONFLICT (student_id) 
-      DO UPDATE SET group_id = EXCLUDED.group_id
+      ON CONFLICT (student_id, group_id) DO NOTHING
+      RETURNING *
     `, [userId, groupId]);
-    res.json({ message: "Alumno asignado/movido con éxito" });
+    
+    // Si no insertó nada (rowCount es 0), significa que ya estaba en ese grupo
+    if (result.rowCount === 0) {
+      return res.status(400).json({ error: "El alumno ya está inscrito en este grupo." });
+    }
+
+    res.json({ message: "Alumno asignado con éxito al nuevo grupo" });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Error al asignar alumno" });
   }
 };
 
-// --- ASIGNAR PROFESOR (N profesores -> N grupos) ---
+// --- ASIGNAR PROFESOR (1 profesor -> 1 grupo -> 1 materia) ---
 const assignTeacher = async (req, res) => {
-  const { userId, groupId, subjectId } = req.body; // Recibimos materia también
+  const { userId, groupId, subjectId } = req.body; // ¡Añadimos subjectId!
+
   try {
-    await pool.query(`
+    // Validamos que lleguen los 3 datos
+    if (!userId || !groupId || !subjectId) {
+      return res.status(400).json({ error: "Faltan datos (Profesor, Grupo o Materia)" });
+    }
+
+    // Insertamos usando las 3 columnas
+    const result = await pool.query(`
       INSERT INTO group_teachers (user_id, group_id, subject_id)
       VALUES ($1, $2, $3)
       ON CONFLICT (user_id, group_id, subject_id) DO NOTHING
+      RETURNING *
     `, [userId, groupId, subjectId]);
-    res.json({ message: "Profesor vinculado al grupo" });
+
+    // Si no insertó nada, es porque esa combinación exacta ya existe
+    if (result.rowCount === 0) {
+      return res.status(400).json({ error: "Este profesor ya imparte esta materia en este grupo" });
+    }
+
+    res.json({ message: "Profesor vinculado a la materia y grupo exitosamente" });
   } catch (err) {
-    res.status(500).json({ error: "Error al vincular profesor" });
+    console.error("Error en assignTeacher:", err.message);
+    res.status(500).json({ error: "Error en el servidor al vincular profesor" });
   }
 };
 
