@@ -107,12 +107,14 @@ const StudentDashboard = () => {
         <div className="cuatrimestres-list">
           {cuatrimestresArray.map((num) => {
             const materias = historyByCuatri[num];
+            // Evaluamos si el cuatrimestre está vacío para añadirle la clase 'no-print'
+            const isEmpty = !materias || materias.length === 0;
 
             return (
-              <div key={num} className="cuatrimestre-block">
+              <div key={num} className={`cuatrimestre-block ${isEmpty ? 'no-print' : ''}`}>
                 <h3 className="cuatrimestre-title">Cuatrimestre {num}</h3>
                 
-                {materias && materias.length > 0 ? (
+                {!isEmpty ? (
                   <div className="table-wrapper">
                     <table className="student-table">
                       <thead>
@@ -152,7 +154,7 @@ const StudentDashboard = () => {
                     </table>
                   </div>
                 ) : (
-                  // MENSAJE SI EL CUATRIMESTRE NO TIENE DATOS
+                  // MENSAJE SI EL CUATRIMESTRE NO TIENE DATOS (Esto no saldrá en la impresión)
                   <div className="empty-cuatrimestre">
                     <Info size={24} className="info-icon" />
                     <div>
