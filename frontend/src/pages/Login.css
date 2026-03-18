@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #0f766e 100%); /* Gradiente azul a teal */
+  background: #ffffff;/* Gradiente azul a teal */
   padding: 1rem;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
@@ -25,7 +25,7 @@
 }
 
 .login-header h2 {
-  color: #1f2937;
+  color: #0B5E63;
   margin: 0 0 0.5rem 0;
   font-size: 1.8rem;
   font-weight: 700;

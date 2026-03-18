@@ -50,8 +50,8 @@ const Login = () => {
     <div className="login-wrapper">
       <div className="login-card fade-in">
         <div className="login-header">
-          <div className="logo-placeholder">🏫</div>
-          <h2>SGE UT Tehuacán</h2>
+          <div className="logo-placeholder"></div>
+          <h2>UTTehuacán</h2>
           <p>Sistema de Gestión Escolar</p>
         </div>
         

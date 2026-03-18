@@ -171,7 +171,7 @@ const UserManagement = ({ token }) => {
         <div className="filter-header">
           <input 
             type="text" 
-            placeholder="🔍 Buscar por nombre o matrícula..." 
+            placeholder="Buscar por nombre o matrícula..." 
             className="search-input"
             onChange={e => setSearchTerm(e.target.value)}
           />
@@ -202,7 +202,7 @@ const UserManagement = ({ token }) => {
                   <td><span className={`badge badge-${u.role}`}>{u.role}</span></td>
                   <td>{u.area || '-'}</td>
                   <td style={{ textAlign: 'center' }}>
-                    <button className="btn-delete" onClick={() => handleDelete(u.id, u.full_name)}>🗑️ Eliminar</button>
+                    <button className="btn-delete" onClick={() => handleDelete(u.id, u.full_name)}>Eliminar</button>
                   </td>
                 </tr>
               ))}

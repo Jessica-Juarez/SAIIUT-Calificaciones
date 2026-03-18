@@ -52,7 +52,7 @@ const GroupManagement = ({ token }) => {
   return (
     <div className="fade-in">
       <div className="admin-card">
-        <h2>🏗️ Configuración de Grupos</h2>
+        <h2>Configuración de Grupos</h2>
         <form onSubmit={handleSubmit} className="admin-form">
           
           <div className="admin-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>

@@ -1,3 +1,20 @@
+/* =========================
+   PALETA UT TEHUACÁN
+   ========================= */
+:root {
+  --primary: #00A99D;
+  --primary-dark: #007C73;
+  --secondary: #0F3D4C;
+
+  --bg: #f4fdfc;
+  --card: #ffffff;
+
+  --text-main: #1f2937;
+  --text-secondary: #7f8c8d;
+
+  --border: #d1f0ec;
+}
+
 /* =========================================
    ESTILOS GENERALES DEL ADMIN DASHBOARD
 ========================================= */
@@ -6,6 +23,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
 }
 
 .admin-header {
@@ -14,18 +32,18 @@
 }
 
 .admin-header h1 {
-  color: #2c3e50;
+  color: var(--secondary);
   font-size: 2.2rem;
   margin-bottom: 10px;
 }
 
 .admin-header p {
-  color: #7f8c8d;
+  color: var(--text-secondary);
   font-size: 1.1rem;
 }
 
 /* =========================================
-   MENÚ DE TARJETAS (HUB)
+   MENÚ DE TARJETAS
 ========================================= */
 .dashboard-grid {
   display: grid;
@@ -35,7 +53,7 @@
 }
 
 .menu-card {
-  background-color: #ffffff;
+  background-color: var(--card);
   border-radius: 12px;
   padding: 30px 20px;
   text-align: center;
@@ -51,7 +69,7 @@
 .menu-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-  border-color: #3498db; /* Azul tipo institucional */
+  border-color: var(--primary);
 }
 
 .menu-icon {
@@ -67,25 +85,21 @@
 }
 
 .menu-card h3 {
-  color: #2c3e50;
+  color: var(--secondary);
   margin-bottom: 10px;
-  font-size: 1.2rem;
 }
 
 .menu-card p {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 /* =========================================
-   ESTILOS DE NAVEGACIÓN Y CONTENEDORES
+   BOTÓN REGRESAR
 ========================================= */
 .btn-back {
   background: none;
   border: none;
-  color: #3498db;
-  font-size: 1rem;
+  color: var(--primary);
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 25px;
@@ -97,249 +111,170 @@
 }
 
 .btn-back:hover {
-  background-color: #ebf5fb;
-  color: #2980b9;
+  background-color: #e6fffb;
+  color: var(--primary-dark);
 }
 
+/* TARJETAS */
 .admin-card {
-  background-color: #ffffff;
+  background-color: var(--card);
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 /* =========================================
-   ESTILOS COMUNES PARA FORMULARIOS Y TABLAS
-   (Estos los heredarán los demás componentes .jsx)
+   FORMULARIOS
 ========================================= */
 .admin-form .form-group {
   margin-bottom: 20px;
 }
 
 .admin-form label {
-  display: block;
   font-weight: 600;
-  margin-bottom: 8px;
-  color: #34495e;
+  color: var(--secondary);
 }
 
 .admin-form input,
 .admin-form select {
   width: 100%;
   padding: 12px;
-  border: 1px solid #bdc3c7;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
   transition: border-color 0.3s;
 }
 
 .admin-form input:focus,
 .admin-form select:focus {
-  border-color: #3498db;
+  border-color: var(--primary);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.15);
 }
 
+/* BOTÓN PRINCIPAL */
 .btn-submit {
   width: 100%;
   padding: 14px;
-  background-color: #27ae60;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
 }
 
 .btn-submit:hover {
-  background-color: #219653;
+  background-color: var(--primary-dark);
 }
 
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  text-align: center;
+/* ALERTAS */
+.alert.success {
+  background-color: #dcfce7;
+  color: #166534;
 }
 
-.alert.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-.alert.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-
-/* ANIMACIONES */
-.fade-in {
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+.alert.error {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
 /* =========================================
-   ESTILOS DE LA BARRA DE NAVEGACIÓN (TABS)
+   NAV (TABS)
 ========================================= */
-.admin-nav {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .admin-nav button {
-  padding: 12px 24px;
-  border: 1px solid #dcdde1;
-  background-color: #f5f6fa;
-  color: #2f3640;
-  cursor: pointer;
+  border: 1px solid var(--border);
+  background-color: #f0fdfa;
+  color: var(--secondary);
   border-radius: 8px;
-  font-size: 1rem;
   font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .admin-nav button:hover {
-  background-color: #e8ecef;
-  transform: translateY(-2px);
+  background-color: #e6fffb;
 }
 
-/* El botón que está seleccionado actualmente */
 .admin-nav button.active {
-  background-color: #3498db; /* Azul institucional */
+  background-color: var(--primary);
   color: white;
-  border-color: #3498db;
-  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+  border-color: var(--primary);
 }
+
 /* =========================================
-   ESTILOS DE TABLAS
+   TABLAS
 ========================================= */
-.table-container {
-  overflow-x: auto;
-}
-
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.admin-table th, .admin-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #e1e8ed;
-}
-
 .admin-table th {
-  background-color: #f8f9fa;
-  color: #2c3e50;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.85rem;
+  background-color: #f0fdfa;
+  color: var(--secondary);
 }
 
 .admin-table tr:hover {
-  background-color: #f1f4f6;
+  background-color: #ecfdfc;
 }
 
-/* Badges (Etiquetas de colores para los roles) */
-.badge {
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
+/* BADGES */
+.badge-admin {
+  background-color: #dc2626;
+  color: white;
 }
-.badge-admin { background-color: #e74c3c; color: white; }
-.badge-teacher { background-color: #f39c12; color: white; }
-.badge-student { background-color: #3498db; color: white; }
+
+.badge-teacher {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.badge-student {
+  background-color: var(--primary);
+  color: white;
+}
 
 /* =========================================
-   BARRA DE BÚSQUEDA Y FILTROS
+   FILTROS
 ========================================= */
-.filter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.filter-header h2 {
-  margin: 0;
-}
-
-.filter-controls {
-  display: flex;
-  gap: 10px;
-  flex: 1;
-  max-width: 600px;
-}
-
-.search-input {
-  flex: 2;
-  padding: 10px 15px;
-  border: 1px solid #bdc3c7;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
+.search-input,
 .role-filter {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #bdc3c7;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f8f9fa;
+  border: 1px solid var(--border);
 }
 
-.search-input:focus, .role-filter:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+.search-input:focus,
+.role-filter:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(0, 169, 157, 0.2);
 }
 
 /* =========================================
-   BOTONES DE ACCIÓN (TABLA)
+   BOTONES DE ACCIÓN
 ========================================= */
 .btn-delete {
-  background-color: #ffeaa7; /* Amarillo/naranja suave de advertencia */
-  color: #d63031;
-  border: 1px solid #fad390;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
 }
 
 .btn-delete:hover {
-  background-color: #d63031;
+  background-color: #c2410c;
   color: white;
-  border-color: #d63031;
 }
+
+/* GRID */
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
 }
 
+/* SUBTÍTULO */
 .subtitle {
   font-size: 0.85rem;
-  color: #7f8c8d;
-  margin-bottom: 15px;
-  border-left: 3px solid #3498db;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--primary);
   padding-left: 10px;
 }
 
+/* BOTÓN PROFESOR */
 .btn-teacher {
-  background-color: #8e44ad !important; /* Un color morado para diferenciar profes */
+  background-color: var(--secondary) !important;
 }
+
 .btn-teacher:hover {
-  background-color: #7d3c98 !important;
+  background-color: #0b2f3a !important;
 }

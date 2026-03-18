@@ -82,7 +82,7 @@ const AssignGroups = ({ token }) => {
         
         {/* FORMULARIO ALUMNOS */}
         <section className="admin-card">
-          <h2>📍 Asignar Alumno a Grupo</h2>
+          <h2>Asignar Alumno a Grupo</h2>
           <p className="subtitle">Recuerda: Un alumno solo puede pertenecer a un grupo activo.</p>
           <form onSubmit={handleStudentSubmit} className="admin-form">
             <div className="form-group">
@@ -117,7 +117,7 @@ const AssignGroups = ({ token }) => {
 
         {/* FORMULARIO PROFESORES */}
         <section className="admin-card">
-          <h2>👨‍🏫 Asignar Profesor a Grupo</h2>
+          <h2>Asignar Profesor a Grupo</h2>
           <p className="subtitle">Varios profesores pueden compartir el mismo grupo.</p>
           <form onSubmit={handleTeacherSubmit} className="admin-form">
             <div className="form-group">

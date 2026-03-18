@@ -82,7 +82,7 @@ const AdminDashboard = ({ token }) => {
         {activeTab === 'teachers' && (
           <div className="admin-card fade-in">
             <h2>Directorio Docente</h2>
-            <p style={{ textAlign: 'center', padding: '20px' }}>🛠️ Módulo en construcción...</p>
+            <p style={{ textAlign: 'center', padding: '20px' }}>Módulo en construcción...</p>
           </div>
         )}
 
@@ -90,7 +90,7 @@ const AdminDashboard = ({ token }) => {
         {activeTab === 'stats' && (
           <div className="admin-card fade-in">
             <h2>Estadísticas Generales</h2>
-            <p style={{ textAlign: 'center', padding: '20px' }}>🛠️ Módulo en construcción...</p>
+            <p style={{ textAlign: 'center', padding: '20px' }}>Módulo en construcción...</p>
           </div>
         )}
         {/* --- 5. GESTIÓN DE GRUPOS --- */}
