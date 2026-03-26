@@ -1,20 +1,3 @@
-/* =========================
-   PALETA UT TEHUACÁN
-   ========================= */
-:root {
-  --primary: #00A99D;
-  --primary-dark: #007C73;
-  --secondary: #0F3D4C;
-
-  --bg: #f4fdfc;
-  --card: #ffffff;
-
-  --text-main: #1f2937;
-  --text-secondary: #7f8c8d;
-
-  --border: #d1f0ec;
-}
-
 /* =========================================
    ESTILOS GENERALES DEL ADMIN DASHBOARD
 ========================================= */
@@ -23,7 +6,6 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg);
 }
 
 .admin-header {
@@ -32,18 +14,18 @@
 }
 
 .admin-header h1 {
-  color: var(--secondary);
+  color: #0F3D4C;
   font-size: 2.2rem;
   margin-bottom: 10px;
 }
 
 .admin-header p {
-  color: var(--text-secondary);
+  color: #6b7280;
   font-size: 1.1rem;
 }
 
 /* =========================================
-   MENÚ DE TARJETAS
+   MENÚ DE TARJETAS (HUB)
 ========================================= */
 .dashboard-grid {
   display: grid;
@@ -53,7 +35,7 @@
 }
 
 .menu-card {
-  background-color: var(--card);
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 30px 20px;
   text-align: center;
@@ -69,7 +51,7 @@
 .menu-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary);
+  border-color: #00A99D;
 }
 
 .menu-icon {
@@ -85,21 +67,25 @@
 }
 
 .menu-card h3 {
-  color: var(--secondary);
+  color: #0F3D4C;
   margin-bottom: 10px;
+  font-size: 1.2rem;
 }
 
 .menu-card p {
-  color: var(--text-secondary);
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* =========================================
-   BOTÓN REGRESAR
+   ESTILOS DE NAVEGACIÓN Y CONTENEDORES
 ========================================= */
 .btn-back {
   background: none;
   border: none;
-  color: var(--primary);
+  color: #00A99D;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 25px;
@@ -112,169 +98,239 @@
 
 .btn-back:hover {
   background-color: #e6fffb;
-  color: var(--primary-dark);
+  color: #007C73;
 }
 
-/* TARJETAS */
 .admin-card {
-  background-color: var(--card);
+  background-color: #ffffff;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 /* =========================================
-   FORMULARIOS
+   ESTILOS COMUNES PARA FORMULARIOS Y TABLAS
 ========================================= */
 .admin-form .form-group {
   margin-bottom: 20px;
 }
 
 .admin-form label {
+  display: block;
   font-weight: 600;
-  color: var(--secondary);
+  margin-bottom: 8px;
+  color: #0F3D4C;
 }
 
 .admin-form input,
 .admin-form select {
   width: 100%;
   padding: 12px;
-  border: 1px solid var(--border);
+  border: 1px solid #d1f0ec;
   border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
   transition: border-color 0.3s;
 }
 
 .admin-form input:focus,
 .admin-form select:focus {
-  border-color: var(--primary);
+  border-color: #00A99D;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.15);
 }
 
-/* BOTÓN PRINCIPAL */
 .btn-submit {
   width: 100%;
   padding: 14px;
-  background-color: var(--primary);
+  background-color: #00A99D;
   color: white;
   border: none;
   border-radius: 6px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
 .btn-submit:hover {
-  background-color: var(--primary-dark);
+  background-color: #007C73;
 }
 
-/* ALERTAS */
-.alert.success {
-  background-color: #dcfce7;
-  color: #166534;
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.alert.error {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
+.alert.success { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+.alert.error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
 /* =========================================
-   NAV (TABS)
+   ESTILOS DE LA BARRA DE NAVEGACIÓN (TABS)
 ========================================= */
+.admin-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .admin-nav button {
-  border: 1px solid var(--border);
-  background-color: #f0fdfa;
-  color: var(--secondary);
+  padding: 12px 24px;
+  border: 1px solid #d1f0ec;
+  background-color: #f4fdfc;
+  color: #0F3D4C;
+  cursor: pointer;
   border-radius: 8px;
+  font-size: 1rem;
   font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .admin-nav button:hover {
   background-color: #e6fffb;
+  transform: translateY(-2px);
 }
 
 .admin-nav button.active {
-  background-color: var(--primary);
+  background-color: #00A99D;
   color: white;
-  border-color: var(--primary);
+  border-color: #00A99D;
+  box-shadow: 0 4px 10px rgba(0, 169, 157, 0.3);
 }
 
 /* =========================================
-   TABLAS
+   ESTILOS DE TABLAS
 ========================================= */
+.table-container {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #d1f0ec;
+}
+
 .admin-table th {
   background-color: #f0fdfa;
-  color: var(--secondary);
+  color: #0F3D4C;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
 .admin-table tr:hover {
   background-color: #ecfdfc;
 }
 
-/* BADGES */
-.badge-admin {
-  background-color: #dc2626;
-  color: white;
+/* Badges */
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
-
-.badge-teacher {
-  background-color: var(--secondary);
-  color: white;
-}
-
-.badge-student {
-  background-color: var(--primary);
-  color: white;
-}
+.badge-admin { background-color: #dc2626; color: white; }
+.badge-teacher { background-color: #0F3D4C; color: white; }
+.badge-student { background-color: #00A99D; color: white; }
 
 /* =========================================
-   FILTROS
+   BARRA DE BÚSQUEDA Y FILTROS
 ========================================= */
-.search-input,
-.role-filter {
-  border: 1px solid var(--border);
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.search-input:focus,
-.role-filter:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 5px rgba(0, 169, 157, 0.2);
+.filter-header h2 {
+  margin: 0;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  max-width: 600px;
+}
+
+.search-input {
+  flex: 2;
+  padding: 10px 15px;
+  border: 1px solid #d1f0ec;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.role-filter {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d1f0ec;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f0fdfa;
+}
+
+.search-input:focus, .role-filter:focus {
+  outline: none;
+  border-color: #00A99D;
+  box-shadow: 0 0 5px rgba(0, 169, 157, 0.3);
 }
 
 /* =========================================
-   BOTONES DE ACCIÓN
+   BOTONES DE ACCIÓN (TABLA)
 ========================================= */
 .btn-delete {
-  background-color: #fff7ed;
-  color: #c2410c;
-  border: 1px solid #fdba74;
+  background-color: #fff1f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
 }
 
 .btn-delete:hover {
-  background-color: #c2410c;
+  background-color: #dc2626;
   color: white;
+  border-color: #dc2626;
 }
 
-/* GRID */
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
 }
 
-/* SUBTÍTULO */
 .subtitle {
   font-size: 0.85rem;
-  color: var(--text-secondary);
-  border-left: 3px solid var(--primary);
+  color: #6b7280;
+  margin-bottom: 15px;
+  border-left: 3px solid #00A99D;
   padding-left: 10px;
 }
 
-/* BOTÓN PROFESOR */
 .btn-teacher {
-  background-color: var(--secondary) !important;
+  background-color: #0F3D4C !important;
 }
 
 .btn-teacher:hover {
-  background-color: #0b2f3a !important;
+  background-color: #0a2c38 !important;
 }

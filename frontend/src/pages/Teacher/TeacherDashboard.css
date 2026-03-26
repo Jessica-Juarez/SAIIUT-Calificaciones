@@ -1,52 +1,35 @@
-/* =========================
-   PALETA UT TEHUACÁN
-   ========================= */
-:root {
-  --primary: #00A99D;
-  --primary-dark: #007C73;
-  --secondary: #0F3D4C;
-
-  --bg: #f4fdfc;
-  --card: #ffffff;
-
-  --text-main: #1f2937;
-  --text-secondary: #64748b;
-
-  --border: #d1f0ec;
-}
-
 /* Contenedor principal */
 .teacher-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text-main);
-  background-color: var(--bg);
+  color: #0F3D4C;
+  background-color: #f4fdfc;
   min-height: 100vh;
 }
 
 .teacher-header {
   margin-bottom: 2rem;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 2px solid #d1f0ec;
   padding-bottom: 1rem;
 }
 
 .teacher-header h1 {
-  color: var(--secondary);
+  color: #0F3D4C;
   margin: 0 0 0.5rem 0;
   font-size: 2rem;
 }
 
 .teacher-header p {
-  color: var(--text-secondary);
+  color: #6b7280;
   margin: 0;
   font-size: 1.1rem;
 }
 
 /* === SECCIÓN DE GRUPOS === */
 .groups-section h2 {
-  color: var(--secondary);
+  color: #0F3D4C;
   margin-bottom: 1.5rem;
 }
 
@@ -58,11 +41,11 @@
 
 /* Tarjeta de Grupo */
 .group-card {
-  background: var(--card);
+  background: #ffffff;
   border-radius: 10px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1f0ec;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -70,7 +53,7 @@
 .group-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary);
+  border-color: #00A99D;
 }
 
 .group-card-header {
@@ -78,7 +61,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #00A99D;
 }
 
 .group-card-header h3 {
@@ -88,16 +71,16 @@
 
 .group-card-body p {
   margin: 0.4rem 0;
-  color: #475569;
+  color: #6b7280;
   font-size: 0.95rem;
 }
 
 .btn-view-students {
   width: 100%;
   margin-top: 1rem;
-  background-color: #e6fffb;
-  color: var(--primary-dark);
-  border: 1px solid var(--border);
+  background-color: #ecfdfc;
+  color: #007C73;
+  border: 1px solid #d1f0ec;
   padding: 0.6rem;
   border-radius: 6px;
   font-weight: 600;
@@ -106,7 +89,7 @@
 }
 
 .group-card:hover .btn-view-students {
-  background-color: var(--primary);
+  background-color: #00A99D;
   color: #ffffff;
 }
 
@@ -120,7 +103,7 @@
 
 .students-header h2 {
   margin: 0;
-  color: var(--secondary);
+  color: #0F3D4C;
 }
 
 .btn-back {
@@ -129,7 +112,7 @@
   gap: 0.4rem;
   background: none;
   border: none;
-  color: var(--text-secondary);
+  color: #6b7280;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -137,16 +120,16 @@
 }
 
 .btn-back:hover {
-  color: var(--secondary);
+  color: #0F3D4C;
 }
 
-/* Tabla */
+/* Tabla de Calificaciones */
 .table-wrapper {
-  background: var(--card);
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   overflow-x: auto;
-  border: 1px solid var(--border);
+  border: 1px solid #d1f0ec;
 }
 
 .teacher-table {
@@ -157,12 +140,12 @@
 .teacher-table th,
 .teacher-table td {
   padding: 1rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #d1f0ec;
 }
 
 .teacher-table th {
   background-color: #f0fdfa;
-  color: var(--text-secondary);
+  color: #6b7280;
   font-weight: 600;
   text-align: left;
   font-size: 0.95rem;
@@ -174,20 +157,20 @@
 
 .student-name {
   font-weight: 500;
-  color: var(--secondary);
+  color: #0F3D4C;
 }
 
 .student-matricula {
-  color: var(--text-secondary);
+  color: #6b7280;
   font-size: 0.9rem;
 }
 
-/* Inputs */
+/* Inputs de Calificación */
 .grade-input {
   width: 70px;
   text-align: center;
   padding: 0.4rem;
-  border: 1px solid var(--border);
+  border: 1px solid #d1f0ec;
   border-radius: 6px;
   font-size: 1rem;
   outline: none;
@@ -195,8 +178,8 @@
 }
 
 .grade-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.15);
+  border-color: #00A99D;
+  box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.1);
 }
 
 /* Botón Guardar */
@@ -204,7 +187,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: var(--primary);
+  background-color: #00A99D;
   color: white;
   border: none;
   padding: 0.5rem 0.8rem;
@@ -215,15 +198,20 @@
 }
 
 .btn-save:hover {
-  background-color: var(--primary-dark);
+  background-color: #007C73;
 }
 
-/* Botón Editar */
+/* Utilidades */
+.text-center { text-align: center; }
+.loading-text { text-align: center; color: #6b7280; padding: 2rem; font-size: 1.1rem; }
+.no-data { color: #6b7280; font-style: italic; }
+
+/* Nuevo botón de editar */
 .btn-edit {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--secondary);
+  background-color: #00A99D;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -235,28 +223,13 @@
 }
 
 .btn-edit:hover {
-  background-color: #0b2f3a;
+  background-color: #007C73;
 }
 
-/* Utilidades */
-.text-center { text-align: center; }
-
-.loading-text {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 2rem;
-  font-size: 1.1rem;
-}
-
-.no-data {
-  color: var(--text-secondary);
-  font-style: italic;
-}
-
-/* Calificaciones bloqueadas */
+/* Estilo para las calificaciones bloqueadas */
 .grade-text {
   font-size: 1.05rem;
-  color: var(--secondary);
+  color: #0F3D4C;
   font-weight: 500;
   display: inline-block;
   padding: 0.4rem;
